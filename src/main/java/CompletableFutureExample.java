@@ -330,4 +330,50 @@ public class CompletableFutureExample {
 
         System.out.println(anyOfFuture.get()); // Result of Future 2
     }
+    @Test
+    public void test17() throws ExecutionException, InterruptedException
+    {
+        Integer age = -1;
+
+        CompletableFuture<String> maturityFuture = CompletableFuture.supplyAsync(() -> {
+            if(age < 0) {
+                throw new IllegalArgumentException("Age can not be negative");
+            }
+            if(age > 18) {
+                return "Adult";
+            } else {
+                return "Child";
+            }
+        }).exceptionally(ex -> {
+            System.out.println("Oops! We have an exception - " + ex.getMessage());
+            return "Unknown!";
+        });
+
+        System.out.println("Maturity : " + maturityFuture.get());
+    }
+
+    @Test
+    public void test18() throws ExecutionException, InterruptedException
+    {
+        Integer age = -1;
+
+        CompletableFuture<String> maturityFuture = CompletableFuture.supplyAsync(() -> {
+            if(age < 0) {
+                throw new IllegalArgumentException("Age can not be negative");
+            }
+            if(age > 18) {
+                return "Adult";
+            } else {
+                return "Child";
+            }
+        }).handle((res, ex) -> {
+            if(ex != null) {
+                System.out.println("Oops! We have an exception - " + ex.getMessage());
+                return "Unknown!";
+            }
+            return res;
+        });
+
+        System.out.println("Maturity : " + maturityFuture.get());
+    }
 }
