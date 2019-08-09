@@ -9,7 +9,7 @@ public class CompletableFutureExample {
 
     @Test
     public void test1() throws ExecutionException, InterruptedException {
-        CompletableFuture<String> completableFuture = new CompletableFuture<String>();
+        CompletableFuture<String> completableFuture = new CompletableFuture<>();
         completableFuture.complete("Future's Result");
         String result = completableFuture.get();
         System.out.println(result);
