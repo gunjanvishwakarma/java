@@ -1,9 +1,12 @@
+/*
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
+
+import com.gunjan.Test;
 
 public class CompletableFutureExample {
 
@@ -15,14 +18,16 @@ public class CompletableFutureExample {
         System.out.println(result);
     }
 
-    /**
+    */
+/**
      * You might be wondering that - Well, I know that the runAsync() and supplyAsync() methods
      * execute their tasks in a separate thread. But, we never created a thread right?
      * Yes! CompletableFuture executes these tasks in a thread obtained from the global ForkJoinPool.commonPool().
      *
      * @throws ExecutionException
      * @throws InterruptedException
-     */
+     *//*
+
     @Test
     public void test2() throws ExecutionException, InterruptedException {
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
@@ -70,7 +75,8 @@ public class CompletableFutureExample {
         }, executor);
     }
 
-    /**
+    */
+/**
      * The CompletableFuture.get() method is blocking. It waits until the Future is
      * completed and returns the result after its completion.
      * <p>
@@ -84,7 +90,8 @@ public class CompletableFutureExample {
      *
      * @throws ExecutionException
      * @throws InterruptedException
-     */
+     *//*
+
     @Test
     public void test5() throws ExecutionException, InterruptedException {
         // Create a CompletableFuture
@@ -98,7 +105,7 @@ public class CompletableFutureExample {
         });
 
         // Attach a callback to the Future using thenApply()
-        CompletableFuture<String> greetingFuture = whatsYourNameFuture.thenApply(name -> {
+            CompletableFuture<String> greetingFuture = whatsYourNameFuture.thenApply(name -> {
             System.out.println("Hello " + name);
             return "Hello " + name;
         });
@@ -108,14 +115,16 @@ public class CompletableFutureExample {
 
     }
 
-    /**
+    */
+/**
      * You can also write a sequence of transformations on the CompletableFuture by attaching a
      * series of thenApply() callback methods. The result of one thenApply() method is passed
      * to the next in the series
      *
      * @throws ExecutionException
      * @throws InterruptedException
-     */
+     *//*
+
     @Test
     public void test6() throws ExecutionException, InterruptedException {
         CompletableFuture<String> welcomeText = CompletableFuture.supplyAsync(() -> {
@@ -135,14 +144,16 @@ public class CompletableFutureExample {
         // Prints - Hello Gunjan, Welcome to the CalliCoder Blog
     }
 
-    /**
+    */
+/**
      * If you don’t want to return anything from your callback function and just want to run some piece
      * of code after the completion of the Future, then you can use thenAccept() and thenRun() methods.
      * These methods are consumers and are often used as the last callback in the callback chain.
      *
      * @throws ExecutionException
      * @throws InterruptedException
-     */
+     *//*
+
     @Test
     public void test7() throws ExecutionException, InterruptedException {
         CompletableFuture.supplyAsync(() -> "Gunjan").thenAccept(name -> {
@@ -157,7 +168,8 @@ public class CompletableFutureExample {
         });
     }
 
-    /**
+    */
+/**
      * All the callback methods provided by CompletableFuture have two async variants
      *
      * <U> CompletableFuture<U> thenApply(Function<? super T,? extends U> fn)
@@ -165,7 +177,8 @@ public class CompletableFutureExample {
      * <U> CompletableFuture<U> thenApplyAsync(Function<? super T,? extends U> fn, Executor executor)
      * <p>
      * These async callback variations help you further parallelize your computations by executing the callback tasks in a separate thread.
-     */
+     *//*
+
     @Test
     public void test9() {
         CompletableFuture.supplyAsync(() -> {
@@ -176,10 +189,12 @@ public class CompletableFutureExample {
             }
             return "Some Result";
         }).thenApply(result -> {
-            /*
+            */
+/*
               Executed in the same thread where the supplyAsync() task is executed
               or in the main thread If the supplyAsync() task completes immediately (Remove sleep() call to verify)
-            */
+            *//*
+
             System.out.println("Thread Name: " + Thread.currentThread().getName());
             return "Processed Result";
         });
@@ -204,9 +219,11 @@ public class CompletableFutureExample {
         }, executor);
     }
 
-    /**
+    */
+/**
      * Combine two dependent futures using thenApply
-     */
+     *//*
+
     @Test
     public void test12() throws ExecutionException, InterruptedException {
         CompletableFuture<CompletableFuture<Integer>> result = getX(1)
@@ -230,9 +247,11 @@ public class CompletableFutureExample {
         });
     }
 
-    /**
+    */
+/**
      * Combine two dependent futures using thenCompose
-     */
+     *//*
+
     @Test
     public void test13() throws ExecutionException, InterruptedException {
         CompletableFuture<Integer> result = getX(1)
@@ -241,10 +260,12 @@ public class CompletableFutureExample {
         System.out.println("SUM = " + result.get());
     }
 
-    /**
+    */
+/**
      * Combine two independent futures using thenCombine
      * The callback function passed to thenCombine() will be called when both the Futures are complete.
-     */
+     *//*
+
     @Test
     public void test14() throws ExecutionException, InterruptedException {
         CompletableFuture<Integer> one = CompletableFuture.supplyAsync(() -> 1);
@@ -253,13 +274,15 @@ public class CompletableFutureExample {
         System.out.println(three.get());
     }
 
-    /**
+    */
+/**
      * CompletableFuture.allOf is used in scenarios when you have a List of independent futures
      * that you want to run in parallel and do something after all of them are complete.
      *
      * @throws ExecutionException
      * @throws InterruptedException
-     */
+     *//*
+
     @Test
     public void test15() throws ExecutionException, InterruptedException {
         List<Integer> arrayIntegers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
@@ -290,13 +313,15 @@ public class CompletableFutureExample {
         return CompletableFuture.supplyAsync(() -> x * y);
     }
 
-    /**
+    */
+/**
      * CompletableFuture.anyOf() as the name suggests, returns a new CompletableFuture which is completed
      * when any of the given CompletableFutures complete, with the same result.
      *
      * @throws ExecutionException
      * @throws InterruptedException
-     */
+     *//*
+
     @Test
     public void test16() throws ExecutionException, InterruptedException {
         CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
@@ -377,3 +402,4 @@ public class CompletableFutureExample {
         System.out.println("Maturity : " + maturityFuture.get());
     }
 }
+*/
