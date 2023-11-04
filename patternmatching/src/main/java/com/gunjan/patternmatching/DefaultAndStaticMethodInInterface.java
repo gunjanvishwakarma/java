@@ -11,12 +11,12 @@ interface Tennis{
         hit("backhand"); 
     }
 }
-public class SportTest implements Tennis{
+public class DefaultAndStaticMethodInInterface implements Tennis{
     public static void main(String[] args) {
-        new SportTest().forehand(); // Hitting a forehand
+        new DefaultAndStaticMethodInInterface().forehand(); // Hitting a forehand
         Tennis.backhand();          // Hitting a backhand
-        new SportTest().hit(); 
-        new SportTest().smash(); 
+        new DefaultAndStaticMethodInInterface().hit(); 
+        new DefaultAndStaticMethodInInterface().smash(); 
     }
 }
 

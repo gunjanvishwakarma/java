@@ -14,6 +14,10 @@ public class PatternMatching {
         String swim();
     }
 
+    sealed interface Animal permits Fish,Duck {
+        boolean pet();
+    }
+
     static final class Fish implements Swim,Animal {
         @Override
         public String swim() {
@@ -38,9 +42,7 @@ public class PatternMatching {
         }
     }
     
-    sealed interface Animal permits Fish,Duck {
-        boolean pet();
-    }
+
     
     public static void isStatements(Animal a){
         if(a instanceof Duck d){
